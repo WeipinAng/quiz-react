@@ -6,6 +6,7 @@
 
     --color-theme: #1098ad;
     --color-accent: #ffa94d;
+    --color-complementary: #e05858;
 }
 
 @import url("https://fonts.googleapis.com/css2?family=Codystar&display=swap");
@@ -169,6 +170,11 @@ progress {
 
 .answer {
     transform: translateX(2rem);
+}
+.answer.wrong {
+    background-color: var(--color-complementary);
+    border: 2px solid var(--color-complementary);
+    color: var(--color-darkest);
 }
 
 .result {
