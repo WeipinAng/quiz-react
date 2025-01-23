@@ -69,6 +69,10 @@ function reducer(state, action) {
             return {
                 ...state,
                 secondsRemaining: state.secondsRemaining - 1,
+                status:
+                    state.secondsRemaining === 0
+                        ? STATUS_CODES.Finished
+                        : state.status,
             };
 
         default:
