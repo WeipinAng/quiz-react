@@ -79,6 +79,10 @@ function reducer(state, action) {
                     state.secondsRemaining === 0
                         ? STATUS_CODES.Finished
                         : state.status,
+                highscore:
+                    state.secondsRemaining === 0
+                        ? Math.max(state.points, state.highscore)
+                        : state.highscore,
             };
 
         default:
