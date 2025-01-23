@@ -1,4 +1,5 @@
 import { useEffect, useReducer } from "react";
+import { STATUS_CODES } from "./enums";
 import Header from "./Header";
 import Main from "./Main";
 import Loader from "./Loader";
@@ -8,17 +9,21 @@ import Question from "./Question";
 
 const initialState = {
     questions: [],
-    status: "loading", // 'loading', 'error', 'ready', 'active', 'finished'
+    status: STATUS_CODES.Loading,
 };
 
 function reducer(state, action) {
     switch (action.type) {
         case "dataReceived":
-            return { ...state, questions: action.payload, status: "ready" };
+            return {
+                ...state,
+                questions: action.payload,
+                status: STATUS_CODES.Ready,
+            };
         case "dataFailed":
-            return { ...state, status: "error" };
+            return { ...state, status: STATUS_CODES.Error };
         case "start":
-            return { ...state, status: "active" };
+            return { ...state, status: STATUS_CODES.Active };
 
         default:
             throw new Error("Action unknown");
@@ -42,15 +47,15 @@ export default function App() {
             <Header />
 
             <Main>
-                {status === "loading" && <Loader />}
-                {status === "error" && <Error />}
-                {status === "ready" && (
+                {status === STATUS_CODES.Loading && <Loader />}
+                {status === STATUS_CODES.Error && <Error />}
+                {status === STATUS_CODES.Ready && (
                     <StartScreen
                         numQuestions={numQuestions}
                         dispatch={dispatch}
                     />
                 )}
-                {status === "active" && <Question />}
+                {status === STATUS_CODES.Active && <Question />}
             </Main>
         </div>
     );
