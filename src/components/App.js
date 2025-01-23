@@ -11,6 +11,7 @@ const initialState = {
     questions: [],
     status: STATUS_CODES.Loading,
     index: 0,
+    answer: null,
 };
 
 function reducer(state, action) {
@@ -25,6 +26,8 @@ function reducer(state, action) {
             return { ...state, status: STATUS_CODES.Error };
         case "start":
             return { ...state, status: STATUS_CODES.Active };
+        case "newAnswer":
+            return { ...state, answer: action.payload };
 
         default:
             throw new Error("Action unknown");
@@ -32,7 +35,7 @@ function reducer(state, action) {
 }
 
 export default function App() {
-    const [{ questions, status, index }, dispatch] = useReducer(
+    const [{ questions, status, index, answer }, dispatch] = useReducer(
         reducer,
         initialState
     );
@@ -60,7 +63,11 @@ export default function App() {
                     />
                 )}
                 {status === STATUS_CODES.Active && (
-                    <Question question={questions[index]} />
+                    <Question
+                        question={questions[index]}
+                        dispatch={dispatch}
+                        answer={answer}
+                    />
                 )}
             </Main>
         </div>
