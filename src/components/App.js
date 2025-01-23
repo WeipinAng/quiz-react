@@ -58,6 +58,7 @@ function reducer(state, action) {
                 ...initialState,
                 questions: state.questions,
                 status: STATUS_CODES.Ready,
+                highscore: state.highscore,
             };
 
         default:
